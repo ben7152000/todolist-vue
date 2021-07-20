@@ -86,7 +86,8 @@ export default {
   > .container {
     width: 600px;
     margin: 100px 50px;
-    background-color: rgba(150, 150, 150 ,.5);
+    z-index: 2;
+    background-color: rgba(200, 200, 200 ,.8);
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .1);
