@@ -9,8 +9,8 @@
         :isDone="todo.isDone"
         :checkedTodo="checkedTodo"
         :deleteTodo="deleteTodo"
-        class="animate__animated animate__delay-1s"
-        :class=" { 'animate__fadeInUp': isAnimate}"
+        class="animate__animated"
+        :class=" { 'animate__fadeInUp': isAnimate, 'animate__delay-1s': isAnimate}"
       />
       </transition-group>
   </ul>
