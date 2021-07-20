@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
 export default {
   name: 'TodoHeader',
   props: {
@@ -25,7 +27,13 @@ export default {
   },
   methods: {
     add () {
-      if (!this.task.trim()) return window.alert('Please do something in the input')
+      if (!this.task.trim()) {
+        return Swal.fire({
+          title: 'Warning!!',
+          text: 'Please do something in the input!',
+          icon: 'warning'
+        })
+      }
       const id = Math.random().toString(36).slice(-8)
       const todoObj = { id, task: this.task.trim(), isDone: false }
       this.addTodo(todoObj)
