@@ -28,6 +28,7 @@ nav {
     color: #ffffff;
     font-size: 3rem;
     letter-spacing: 1px;
+    z-index: 999;
   }
 }
 </style>
