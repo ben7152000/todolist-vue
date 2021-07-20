@@ -55,6 +55,7 @@ export default {
     font-size: 1.1rem;
     padding-left: 10px;
     border-radius: 5px;
+    height: 40px;
     &::placeholder {
       opacity: .4;
       transition: .5s;

@@ -9,6 +9,7 @@
     "deploy": "sh ./deploy.sh"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "core-js": "^3.6.5",
     "sweetalert2": "^11.0.19",
     "vue": "^2.6.11",

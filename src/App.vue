@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar title="Todo List"/>
-    <router-view/>
+      <router-view/>
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
 body {
   height: 100%;
   min-height: 100vh;
-  background-image: url("https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80");
+  background-image: url("https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

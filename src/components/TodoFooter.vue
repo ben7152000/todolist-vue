@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-footer">
+  <div class="todo-footer animate__animated animate__fadeInUp animate__delay-2s">
     <label>
       <input type="checkbox" v-model="isAll">
     </label>
@@ -47,6 +47,13 @@ export default {
   },
   methods: {
     clearAll () {
+      if (this.totalCompleted === 0) {
+        return Swal.fire({
+          title: 'Warning!!',
+          text: 'Please check your task!',
+          icon: 'warning'
+        })
+      }
       Swal.fire({
         title: 'Are you sure?',
         text: 'You want to clear all tasks?',

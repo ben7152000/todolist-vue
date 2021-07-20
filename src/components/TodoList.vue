@@ -9,6 +9,8 @@
         :isDone="todo.isDone"
         :checkedTodo="checkedTodo"
         :deleteTodo="deleteTodo"
+        class="animate__animated animate__delay-1s"
+        :class=" { 'animate__fadeInUp': isAnimate}"
       />
       </transition-group>
   </ul>
@@ -35,6 +37,16 @@ export default {
       type: Function,
       required: true
     }
+  },
+  data () {
+    return {
+      isAnimate: true
+    }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.isAnimate = false
+    }, 2000)
   }
 }
 </script>
