@@ -14,12 +14,6 @@ import Swal from 'sweetalert2'
 
 export default {
   name: 'TodoHeader',
-  props: {
-    addTodo: {
-      type: Function,
-      required: true
-    }
-  },
   data () {
     return {
       task: ''
@@ -36,7 +30,7 @@ export default {
       }
       const id = Math.random().toString(36).slice(-8)
       const todoObj = { id, task: this.task.trim(), isDone: false }
-      this.addTodo(todoObj)
+      this.$emit('addTodo', todoObj)
       this.task = ''
     }
   }

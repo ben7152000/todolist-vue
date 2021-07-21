@@ -19,14 +19,6 @@ export default {
     todos: {
       type: Array,
       required: true
-    },
-    checkAllTodo: {
-      type: Function,
-      required: true
-    },
-    clearCompletedTodo: {
-      type: Function,
-      required: true
     }
   },
   computed: {
@@ -35,7 +27,7 @@ export default {
         return this.totalCompleted === this.totalTodos && this.totalTodos > 0
       },
       set (value) {
-        this.checkAllTodo(value)
+        this.$emit('checkAllTodo', value)
       }
     },
     totalCompleted () {
@@ -70,7 +62,7 @@ export default {
               'Your task has been deleted.',
               'success'
             )
-            this.clearCompletedTodo()
+            this.$emit('clearCompletedTodo')
           }
         })
     }

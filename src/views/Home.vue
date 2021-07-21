@@ -1,11 +1,19 @@
 <template>
   <div class="home animate__animated animate__jackInTheBox">
     <div class="container">
-      <TodoHeader :addTodo="addTodo"/>
+      <TodoHeader @addTodo="addTodo"/>
       <transition name="fade" mode="out-in">
         <div v-if="todos.length">
-          <TodoList :todos="todos" :deleteTodo="deleteTodo" :checkedTodo="checkedTodo"/>
-          <TodoFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearCompletedTodo="clearCompletedTodo"/>
+          <TodoList
+            :todos="todos"
+            :deleteTodo="deleteTodo"
+            :checkedTodo="checkedTodo"
+          />
+          <TodoFooter
+            :todos="todos"
+            @checkAllTodo="checkAllTodo"
+            @clearCompletedTodo="clearCompletedTodo"
+          />
         </div>
         <template v-else>
           <p>Nothing Tasks</p>
@@ -29,23 +37,7 @@ export default {
   },
   data () {
     return {
-      todos: [
-        {
-          id: 1,
-          task: 'Reading book',
-          isDone: false
-        },
-        {
-          id: 2,
-          task: 'Writing homework',
-          isDone: true
-        },
-        {
-          id: 3,
-          task: 'Watch TV',
-          isDone: false
-        }
-      ]
+      todos: JSON.parse(localStorage.getItem('todos')) || []
     }
   },
   methods: {
@@ -71,6 +63,12 @@ export default {
       this.todos = this.todos.filter(todo => {
         return !todo.isDone
       })
+    }
+  },
+  watch: {
+    todos (value) {
+      console.log('a')
+      localStorage.setItem('todos', JSON.stringify(value))
     }
   }
 }
