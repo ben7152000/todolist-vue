@@ -6,8 +6,9 @@
         <div v-if="todos.length">
           <TodoList
             :todos="todos"
-            :deleteTodo="deleteTodo"
             :checkedTodo="checkedTodo"
+            :updatedTodo="updatedTodo"
+            :deleteTodo="deleteTodo"
           />
           <TodoFooter
             :todos="todos"
@@ -49,6 +50,11 @@ export default {
         if (todo.id === id) todo.isDone = !todo.isDone
       })
     },
+    updatedTodo (id, task) {
+      this.todos.forEach(todo => {
+        if (todo.id === id) todo.task = task
+      })
+    },
     deleteTodo (id) {
       this.todos = this.todos.filter(todo => {
         if (todo.id !== id) return todo
@@ -66,9 +72,11 @@ export default {
     }
   },
   watch: {
-    todos (value) {
-      console.log('a')
-      localStorage.setItem('todos', JSON.stringify(value))
+    todos: {
+      handler (value) {
+        localStorage.setItem('todos', JSON.stringify(value))
+      },
+      deep: true
     }
   }
 }

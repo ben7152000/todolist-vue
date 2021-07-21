@@ -1,10 +1,30 @@
 <template>
   <li>
     <label>
-      <input type="checkbox" :checked="isDone" @change="changeHandler(id)">
-      <span :class="{ 'checked' : isDone }">{{ task }}</span>
+      <input
+        type="checkbox"
+        :checked="todo.isDone"
+        @change="changeHandler(todo.id)"
+      >
+      <span
+        :class="{ 'checked' : todo.isDone }"
+        v-show="!isEdit"
+      >
+        {{ todo.task }}
+      </span>
+      <input
+        type="text"
+        class="edit-input"
+        v-show="isEdit"
+        :value="todo.task"
+        @blur="blurHandler(todo, $event)"
+        ref="inputTask"
+      >
     </label>
-    <button class="btn" @click="deleteHandler(id)">delete</button>
+    <div>
+      <button class="edit" @click="editHandler(todo)">edit</button>
+      <button class="btn" @click="deleteHandler(todo.id)">delete</button>
+    </div>
   </li>
 </template>
 
@@ -13,25 +33,26 @@ import Swal from 'sweetalert2'
 export default {
   name: 'TodoItem',
   props: {
-    id: {
-      type: [Number, String],
-      required: true
-    },
-    task: {
-      type: String,
-      required: true
-    },
-    isDone: {
-      type: Boolean,
+    todo: {
+      type: Object,
       required: true
     },
     checkedTodo: {
       type: Function,
       required: true
     },
+    updatedTodo: {
+      type: Function,
+      required: true
+    },
     deleteTodo: {
       type: Function,
       required: true
+    }
+  },
+  data () {
+    return {
+      isEdit: false
     }
   },
   methods: {
@@ -58,6 +79,23 @@ export default {
             this.deleteTodo(id)
           }
         })
+    },
+    editHandler () {
+      this.isEdit = true
+      this.$nextTick(() => {
+        this.$refs.inputTask.focus()
+      })
+    },
+    blurHandler (todo, e) {
+      this.isEdit = false
+      if (!e.target.value.trim()) {
+        return Swal.fire(
+          'Warning!',
+          'Input need to write something.',
+          'warning'
+        )
+      }
+      this.updatedTodo(todo.id, e.target.value)
     }
   }
 }
@@ -77,6 +115,14 @@ li {
     font-size: 1.1rem;
     line-height: 20px;
     letter-spacing: .5px;
+    > .edit-input {
+      outline: none;
+      border: none;
+      border-radius: 5px;
+      padding-left: 10px;
+      line-height: 25px;
+      font-size: 1.1rem;
+    }
     > .checked {
       opacity: .5;
       font-style: italic;
@@ -112,7 +158,23 @@ li {
       }
     }
   }
-  > .btn {
+  .edit {
+    padding: 2px 10px;
+    margin-right: 10px;
+    background: rgba(0, 89, 255, 0.94);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    letter-spacing: .5px;
+    color: #ffffff;
+    cursor: pointer;
+    opacity: .2;
+    transition: .5s;
+    &:hover {
+      opacity: .8;
+    }
+  }
+  .btn {
     padding: 2px 10px;
     background: rgba(255, 0, 0, 0.94);
     border: none;

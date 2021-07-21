@@ -4,10 +4,9 @@
       <TodoItem
         v-for="todo in todos"
         :key="todo.id"
-        :id="todo.id"
-        :task="todo.task"
-        :isDone="todo.isDone"
+        :todo="todo"
         :checkedTodo="checkedTodo"
+        :updatedTodo="updatedTodo"
         :deleteTodo="deleteTodo"
         class="animate__animated"
         :class=" { 'animate__fadeInUp': isAnimate, 'animate__delay-1s': isAnimate}"
@@ -30,6 +29,10 @@ export default {
       required: true
     },
     checkedTodo: {
+      type: Function,
+      required: true
+    },
+    updatedTodo: {
       type: Function,
       required: true
     },
