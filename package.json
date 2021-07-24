@@ -6,11 +6,18 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "sh ./deploy.sh"
+    "deploy": "sh ./deploy.sh",
+    "server": "nodemon ./server/app.js"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
+    "bcrypt": "^5.0.1",
     "core-js": "^3.6.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.3",
+    "nodemon": "^2.0.12",
     "sweetalert2": "^11.0.19",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0"
