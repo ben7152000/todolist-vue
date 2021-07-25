@@ -36,10 +36,12 @@ export default {
     async login () {
       try {
         this.isLogin = true
-        await this.axios.post('http://localhost:8080/api/auth/login', {
+        const user = await this.axios.post('http://localhost:8080/api/auth/login', {
           username: this.username,
           password: this.password
         })
+        const asscessToken = user.data.asscessToken
+        localStorage.setItem('token', JSON.stringify(asscessToken))
         this.$router.push('/')
       } catch (e) {
         this.isLogin = false
