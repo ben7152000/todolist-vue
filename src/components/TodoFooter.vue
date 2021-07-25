@@ -21,6 +21,7 @@ export default {
       required: true
     }
   },
+  inject: ['reload'],
   computed: {
     isAll: {
       get () {

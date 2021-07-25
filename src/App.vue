@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar title="Todo List"/>
+    <Navbar title="Todo List" @userLogout="userLogout"/>
       <router-view v-if="isShow"/>
   </div>
 </template>
@@ -27,6 +27,10 @@ export default {
     reload () {
       this.isShow = false
       this.$nextTick(() => { this.isShow = true })
+    },
+    userLogout () {
+      localStorage.removeItem('token')
+      this.$router.push('/login')
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <nav>
     <h1>{{ title }}</h1>
-    <button>Logout</button>
+    <button @click="logout">Logout</button>
   </nav>
 </template>
 
@@ -12,6 +12,11 @@ export default {
     title: {
       type: String,
       required: true
+    }
+  },
+  methods: {
+    logout () {
+      this.$emit('userLogout')
     }
   }
 }
@@ -42,6 +47,7 @@ nav {
     color: white;
     border-radius: 10px;
     text-decoration: none;
+    z-index: 999;
   }
 }
 </style>
