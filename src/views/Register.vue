@@ -1,41 +1,32 @@
 <template>
   <div class="register">
-    <span class="register-title">Register</span>
-    <form
-      class="register-form"
-      @submit.prevent="register"
-    >
-      <label>Username</label>
-      <input
-        v-model="username"
-        class="register-input"
-        type="text"
-        placeholder="Enter your username..."
-      >
-      <label>Email</label>
-      <input
-        v-model="email"
-        class="register-input"
-        type="text"
-        placeholder="Enter your email..."
-      >
-      <label>Password</label>
-      <input
-        v-model="password"
-        class="register-input"
-        type="password"
-        placeholder="Enter your password..."
-      >
-      <button class="register-button">
-        Register
-      </button>
-    </form>
-    <router-link
-      to="/login"
-      class="register-login-button"
-    >
-      Login
-    </router-link>
+    <div class="container">
+      <span class="title">Register</span>
+      <form @submit.prevent="register">
+        <label>Username</label>
+        <input
+          v-model="username"
+          type="text"
+          placeholder="Enter your username..."
+        >
+        <label>Email</label>
+        <input
+          v-model="email"
+          type="email"
+          placeholder="Enter your email..."
+        >
+        <label>Password</label>
+        <input
+          v-model="password"
+          type="password"
+          placeholder="Enter your password..."
+        >
+        <button class="btn btn-register">
+          Register
+        </button>
+        <router-link to="/login" class="btn btn-login">Login</router-link>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -48,6 +39,24 @@ export default {
       email: '',
       password: '',
       isLogin: false
+    }
+  },
+  methods: {
+    async register () {
+      try {
+        this.isLogin = true
+        this.axios.post('http://localhost:8081/api/auth/register', {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        })
+        this.$router.push('/login')
+      } catch (e) {
+        this.isLogin = false
+        console.log(e)
+      } finally {
+        this.isLogin = false
+      }
     }
   }
 }
@@ -67,47 +76,59 @@ export default {
   url("https://images.pexels.com/photos/317355/pexels-photo-317355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   background-size: cover;
 
-  > .register-title {
-    font-size: 50px;
-  }
-  > .register-form {
-    margin-top: 20px;
+  > .container {
     display: flex;
     flex-direction: column;
-    > label {
-      margin: 10px 0;
+    padding: 50px;
+    > .title {
+      text-align: center;
+      font-size: 3rem;
     }
-    > .register-input {
-      padding: 10px;
-      background-color: white;
-      border: none;
-      border-radius: 10px;
-      &:focus {
-        outline: none;
+    > form {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      > label {
+        margin: 10px 0;
+        font-size: 1.2rem;
+        letter-spacing: .5px;
+      }
+      > input {
+        padding: 10px;
+        width: 250px;
+        background-color: white;
+        border: none;
+        border-radius: 10px;
+        &:focus {
+          outline: none;
+        }
+      }
+      > .btn-register {
+        background-color: teal;
+        transition: .5s;
+        &:hover {
+          background-color: darken(teal, 10%);
+        }
+      }
+      > .btn-login {
+        background-color: lightcoral;
+        transition: .5s;
+        &:hover {
+          background-color: darken(lightcoral, 10%);
+        }
       }
     }
-    > .register-button {
-      margin-top: 20px;
-      cursor: pointer;
-      background-color: teal;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      text-align: center;
-    }
   }
-  > .register-login-button {
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    background-color: lightcoral;
-    cursor: pointer;
-    padding: 10px;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    text-decoration: none;
-  }
+}
+
+.btn {
+  margin-top: 20px;
+  cursor: pointer;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
 }
 </style>
