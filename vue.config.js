@@ -4,6 +4,20 @@ module.exports = {
     : '/',
   devServer: {
     open: true,
-    proxy: process.env.HEROKU_URL || 'http://localhost:8081'
+    proxy: {
+      '/': {
+        target: 'http://localhost:8081',
+        pathRewrite: {
+          '^/': ''
+        }
+      },
+      '/todolist-vue': {
+        target: 'https://cryptic-caverns-48253.herokuapp.com',
+        pathRewrite: {
+          '^/todolist-vue': ''
+        }
+      }
+    }
+    // proxy: 'https://cryptic-caverns-48253.herokuapp.com' || 'http://localhost:8081'
   }
 }

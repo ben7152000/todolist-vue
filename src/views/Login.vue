@@ -44,11 +44,10 @@ export default {
       }
       try {
         this.isLogin = true
-        const user = await this.axios.post(`${process.env.GIT_URL}/api/auth/login` || 'http://localhost:8080/api/auth/login', {
+        const user = await this.axios.post('http://localhost:8080/api/auth/login', {
           username: this.username,
           password: this.password
         })
-        console.log(process.env.GIT_URL)
         const asscessToken = user.data.asscessToken
         localStorage.setItem('token', JSON.stringify(asscessToken))
         this.$router.push('/')
