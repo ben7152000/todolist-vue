@@ -8,6 +8,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
     path: '/login',
     name: 'Login',
     component: Login
@@ -18,9 +23,9 @@ const routes = [
     component: Register
   },
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '*',
+    name: 'Login',
+    component: Login
   }
 ]
 
@@ -28,6 +33,19 @@ const router = new VueRouter({
   // mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const token = JSON.parse(localStorage.getItem('token'))
+  if (!token) {
+    if (to.path === '/') {
+      next({ path: '/login' })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

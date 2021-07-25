@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <div class="container">
-      <span class="title">Register</span>
+      <h2 class="title">Register</h2>
       <form @submit.prevent="register">
         <label>Username</label>
         <input
