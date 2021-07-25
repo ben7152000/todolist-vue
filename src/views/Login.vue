@@ -48,6 +48,7 @@ export default {
           username: this.username,
           password: this.password
         })
+        console.log(process.env.GIT_URL)
         const asscessToken = user.data.asscessToken
         localStorage.setItem('token', JSON.stringify(asscessToken))
         this.$router.push('/')
