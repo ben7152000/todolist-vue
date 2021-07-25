@@ -1,6 +1,7 @@
 <template>
   <nav>
     <h1>{{ title }}</h1>
+    <button>Logout</button>
   </nav>
 </template>
 
@@ -18,6 +19,7 @@ export default {
 
 <style lang="scss" scoped>
 nav {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,6 +31,17 @@ nav {
     font-size: 3rem;
     letter-spacing: 1px;
     z-index: 999;
+  }
+  > button {
+    position: absolute;
+    right: 20px;
+    background-color: teal;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
   }
 }
 </style>

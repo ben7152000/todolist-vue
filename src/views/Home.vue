@@ -1,6 +1,6 @@
 <template>
-  <div class="home animate__animated animate__jackInTheBox">
-    <div class="container">
+  <div class="home">
+    <div class="container animate__animated animate__jackInTheBox">
       <TodoHeader @addTodo="addTodo"/>
       <transition name="fade" mode="out-in">
         <div v-if="todos.length">
@@ -85,10 +85,24 @@ export default {
 <style lang="scss" scoped>
 .home {
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: .3;
+  }
   > .container {
     width: 600px;
     margin: 100px 50px;

@@ -26,25 +26,6 @@ export default {
   font-family: 'Poppins', sans-serif;
 }
 
-body {
-  height: 100%;
-  min-height: 100vh;
-  background-image: url("https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000000;
-    opacity: .3;
-  }
-}
-
 ul {
   list-style: none;
 }
