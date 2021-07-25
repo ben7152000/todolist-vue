@@ -7,6 +7,7 @@
         :checkedTodo="checkedTodo"
         :updatedTodo="updatedTodo"
         :deleteTodo="deleteTodo"
+        class="animate__animated animate__fadeIn"
       />
   </ul>
 </template>

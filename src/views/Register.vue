@@ -1,8 +1,8 @@
 <template>
   <div class="register">
     <div class="container">
-      <h2 class="title">Register</h2>
-      <form @submit.prevent="register" novalidate>
+      <h2 class="title animate__animated animate__backInDown">Register</h2>
+      <form @submit.prevent="register" novalidate class="animate__animated animate__jackInTheBox">
         <label>Username</label>
         <input
           v-model="username"
