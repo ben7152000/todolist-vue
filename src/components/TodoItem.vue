@@ -4,7 +4,7 @@
       <input
         type="checkbox"
         :checked="todo.isDone"
-        @change="changeHandler(todo.id)"
+        @change="changeHandler(todo)"
       >
       <span
         :class="{ 'checked' : todo.isDone }"
@@ -57,8 +57,11 @@ export default {
     }
   },
   methods: {
-    changeHandler (id) {
-      this.checkedTodo(id)
+    changeHandler (todo) {
+      this.checkedTodo(todo)
+      setTimeout(() => {
+        this.reload()
+      }, 100)
     },
     deleteHandler (id) {
       Swal.fire({
@@ -78,7 +81,9 @@ export default {
               'success'
             )
             this.deleteTodo(id)
-            this.reload()
+            setTimeout(() => {
+              this.reload()
+            }, 100)
           }
         })
     },
@@ -97,7 +102,10 @@ export default {
           'warning'
         )
       }
-      this.updatedTodo(todo.id, e.target.value)
+      this.updatedTodo(todo._id, e.target.value)
+      setTimeout(() => {
+        this.reload()
+      }, 100)
     }
   }
 }

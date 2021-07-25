@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container">
-      <TodoHeader @addTodo="addTodo" @keyup.native.enter="showRouter"/>
+      <TodoHeader @addTodo="addTodo" />
 
         <div v-if="todos.length">
           <TodoList
@@ -9,7 +9,6 @@
             :checkedTodo="checkedTodo"
             :updatedTodo="updatedTodo"
             :deleteTodo="deleteTodo"
-            :showRouter="showRouter"
           />
           <TodoFooter
             :todos="todos"
@@ -53,11 +52,7 @@ export default {
       todos: []
     }
   },
-  inject: ['reload'],
   methods: {
-    showRouter () {
-      this.reload()
-    },
     async addTodo (todoObj) {
       try {
         await this.axios.post(
@@ -69,15 +64,27 @@ export default {
         console.log(e)
       }
     },
-    checkedTodo (id) {
-      this.todos.forEach(todo => {
-        if (todo.id === id) todo.isDone = !todo.isDone
-      })
+    async checkedTodo (todoObj) {
+      try {
+        await this.axios.put(
+          `http://localhost:8080/api/todos/${todoObj._id}`,
+          { isDone: !todoObj.isDone },
+          { headers: { Authorization: this.getToken } }
+        )
+      } catch (e) {
+        console.log(e)
+      }
     },
-    updatedTodo (id, task) {
-      this.todos.forEach(todo => {
-        if (todo.id === id) todo.task = task
-      })
+    async updatedTodo (id, name) {
+      try {
+        await this.axios.put(
+          `http://localhost:8080/api/todos/${id}`,
+          { name },
+          { headers: { Authorization: this.getToken } }
+        )
+      } catch (e) {
+        console.log(e)
+      }
     },
     async deleteTodo (id) {
       try {
@@ -108,8 +115,8 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  align-items: flex-start;
+  min-height: calc(100vh - 100px);
   background-image: url("https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
   background-repeat: no-repeat;
   background-size: cover;

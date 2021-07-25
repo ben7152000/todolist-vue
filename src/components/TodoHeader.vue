@@ -19,6 +19,7 @@ export default {
       name: ''
     }
   },
+  inject: ['reload'],
   methods: {
     add () {
       if (!this.name.trim()) {
@@ -31,6 +32,9 @@ export default {
       const todoObj = { name: this.name.trim() }
       this.$emit('addTodo', todoObj)
       this.name = ''
+      setTimeout(() => {
+        this.reload()
+      }, 100)
     }
   }
 }
