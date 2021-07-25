@@ -53,7 +53,7 @@ export default {
       }
       try {
         this.isLogin = true
-        this.axios.post('http://localhost:8080/api/auth/register', {
+        this.axios.post('https://cryptic-caverns-48253.herokuapp.com/api/auth/register' && 'http://localhost:8080/api/auth/register', {
           username: this.username,
           email: this.email,
           password: this.password
