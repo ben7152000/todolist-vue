@@ -44,7 +44,7 @@ export default {
       }
       try {
         this.isLogin = true
-        const user = await this.axios.post('http://localhost:8080/api/auth/login', {
+        const user = await this.axios.post(process.env.HEROKU_URL || 'http://localhost:8080/api/auth/login', {
           username: this.username,
           password: this.password
         })
