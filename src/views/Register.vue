@@ -2,7 +2,7 @@
   <div class="register">
     <div class="container">
       <h2 class="title">Register</h2>
-      <form @submit.prevent="register">
+      <form @submit.prevent="register" novalidate>
         <label>Username</label>
         <input
           v-model="username"
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { Toast } from '../utils/swal'
+
 export default {
   name: 'Register',
   data () {
@@ -43,6 +45,12 @@ export default {
   },
   methods: {
     async register () {
+      if (!this.username.trim() || !this.email.trim() || !this.password.trim()) {
+        return Toast.fire({
+          icon: 'warning',
+          title: 'please enter info in the input.'
+        })
+      }
       try {
         this.isLogin = true
         this.axios.post('http://localhost:8080/api/auth/register', {

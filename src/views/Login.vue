@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { Toast } from '../utils/swal'
+
 export default {
   name: 'Login',
   data () {
@@ -34,6 +36,12 @@ export default {
   },
   methods: {
     async login () {
+      if (!this.username.trim() || !this.password.trim()) {
+        return Toast.fire({
+          icon: 'warning',
+          title: 'please enter info in the input.'
+        })
+      }
       try {
         this.isLogin = true
         const user = await this.axios.post('http://localhost:8080/api/auth/login', {

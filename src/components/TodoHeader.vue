@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
+import { Toast } from '../utils/swal'
 
 export default {
   name: 'TodoHeader',
@@ -23,8 +23,7 @@ export default {
   methods: {
     add () {
       if (!this.name.trim()) {
-        return Swal.fire({
-          title: 'Warning!!',
+        return Toast.fire({
           text: 'Please do something in the input!',
           icon: 'warning'
         })

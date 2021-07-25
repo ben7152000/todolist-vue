@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
+import { Toast } from '../utils/swal'
 
 export default {
   name: 'TodoFooter',
@@ -41,31 +41,20 @@ export default {
   methods: {
     clearAll () {
       if (this.totalCompleted === 0) {
-        return Swal.fire({
+        return Toast.fire({
+          toast: false,
           title: 'Warning!!',
           text: 'Please check your task!',
-          icon: 'warning'
+          icon: 'warning',
+          position: 'center',
+          timer: 2000
         })
       }
-      Swal.fire({
-        title: 'Are you sure?',
-        text: 'You want to clear all tasks?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+      Toast.fire({
+        title: 'Your task has been deleted.',
+        icon: 'success'
       })
-        .then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire(
-              'Deleted!',
-              'Your task has been deleted.',
-              'success'
-            )
-            this.$emit('clearCompletedTodo')
-          }
-        })
+      this.$emit('clearCompletedTodo')
     }
   }
 }

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
+import { Toast } from '../utils/swal'
 export default {
   name: 'TodoItem',
   props: {
@@ -64,28 +64,14 @@ export default {
       }, 100)
     },
     deleteHandler (id) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: 'You want to delete your todo?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+      Toast.fire({
+        title: 'Your task has been deleted.',
+        icon: 'success'
       })
-        .then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire(
-              'Deleted!',
-              'Your todo has been deleted.',
-              'success'
-            )
-            this.deleteTodo(id)
-            setTimeout(() => {
-              this.reload()
-            }, 100)
-          }
-        })
+      this.deleteTodo(id)
+      setTimeout(() => {
+        this.reload()
+      }, 100)
     },
     editHandler () {
       this.isEdit = true
@@ -96,11 +82,10 @@ export default {
     blurHandler (todo, e) {
       this.isEdit = false
       if (!e.target.value.trim()) {
-        return Swal.fire(
-          'Warning!',
-          'Input need to write something.',
-          'warning'
-        )
+        return Toast.fire({
+          title: 'Input need to write something!',
+          icon: 'warning'
+        })
       }
       this.updatedTodo(todo._id, e.target.value)
       setTimeout(() => {
