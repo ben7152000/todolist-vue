@@ -39,7 +39,7 @@ export default {
   },
   inject: ['reload'],
   mounted () {
-    this.axios.get(`${process.env.HEROKU_URL}/api/todos` || 'http://localhost:8080/api/todos', {
+    this.axios.get('http://localhost:8080/api/todos', {
       headers: { Authorization: this.getToken }
     })
       .then(res => {
@@ -58,7 +58,7 @@ export default {
     async addTodo (todoObj) {
       try {
         await this.axios.post(
-          `${process.env.HEROKU_URL}/api/todos` || 'http://localhost:8080/api/todos',
+          'http://localhost:8080/api/todos',
           todoObj,
           { headers: { Authorization: this.getToken } }
         )
@@ -69,9 +69,9 @@ export default {
     async checkedTodo (todoObj) {
       try {
         await this.axios.put(
-          `${process.env.HEROKU_URL}/api/todos/${todoObj._id}` || `http://localhost:8080/api/todos/${todoObj._id}`,
-          { isDone: !todoObj.isDone },
-          { headers: { Authorization: this.getToken } }
+           `http://localhost:8080/api/todos/${todoObj._id}`,
+           { isDone: !todoObj.isDone },
+           { headers: { Authorization: this.getToken } }
         )
       } catch (e) {
         console.log(e)
@@ -80,9 +80,9 @@ export default {
     async updatedTodo (id, name) {
       try {
         await this.axios.put(
-          `${process.env.HEROKU_URL}/api/todos/${id}` || `http://localhost:8080/api/todos/${id}`,
-          { name },
-          { headers: { Authorization: this.getToken } }
+           `http://localhost:8080/api/todos/${id}`,
+           { name },
+           { headers: { Authorization: this.getToken } }
         )
       } catch (e) {
         console.log(e)
@@ -91,8 +91,8 @@ export default {
     async deleteTodo (id) {
       try {
         await this.axios.delete(
-          `${process.env.HEROKU_URL}/api/todos/${id}` || `http://localhost:8080/api/todos/${id}`,
-          { headers: { Authorization: this.getToken } }
+           `http://localhost:8080/api/todos/${id}`,
+           { headers: { Authorization: this.getToken } }
         )
       } catch (e) {
         console.log(e)
@@ -101,7 +101,7 @@ export default {
     async checkAllTodo (value) {
       try {
         await this.axios.put(
-          `${process.env.HEROKU_URL}/api/todos` || 'http://localhost:8080/api/todos',
+          'http://localhost:8080/api/todos',
           { isDone: value },
           { headers: { Authorization: this.getToken } }
         )
@@ -115,7 +115,7 @@ export default {
     async clearCompletedTodo () {
       try {
         await this.axios.delete(
-          `${process.env.HEROKU_URL}/api/todos` || 'http://localhost:8080/api/todos',
+          'http://localhost:8080/api/todos',
           { headers: { Authorization: this.getToken } }
         )
         setTimeout(() => {

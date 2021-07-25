@@ -53,7 +53,7 @@ export default {
       }
       try {
         this.isLogin = true
-        this.axios.post(`${process.env.HEROKU_URL}/api/auth/register` || 'http://localhost:8080/api/auth/register', {
+        this.axios.post('http://localhost:8080/api/auth/register', {
           username: this.username,
           email: this.email,
           password: this.password

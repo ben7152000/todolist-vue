@@ -4,6 +4,6 @@ module.exports = {
     : '/',
   devServer: {
     open: true,
-    proxy: 'http://localhost:8081'
+    proxy: process.env.HEROKU_URL || 'http://localhost:8081'
   }
 }
