@@ -6,7 +6,7 @@ module.exports = {
     open: true,
     proxy: {
       '/': {
-        target: 'http://localhost:8081',
+        target: 'https://cryptic-caverns-48253.herokuapp.com',
         pathRewrite: {
           '^/': ''
         }
