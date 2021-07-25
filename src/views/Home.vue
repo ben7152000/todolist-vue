@@ -39,7 +39,7 @@ export default {
   },
   inject: ['reload'],
   mounted () {
-    this.axios.get('https://cryptic-caverns-48253.herokuapp.com/api/todos' && 'http://localhost:8080/api/todos', {
+    this.axios.get('https://cryptic-caverns-48253.herokuapp.com/api/todos', {
       headers: { Authorization: this.getToken }
     })
       .then(res => {
@@ -58,7 +58,7 @@ export default {
     async addTodo (todoObj) {
       try {
         await this.axios.post(
-          'https://cryptic-caverns-48253.herokuapp.com/api/todos' && 'http://localhost:8080/api/todos',
+          'https://cryptic-caverns-48253.herokuapp.com/api/todos',
           todoObj,
           { headers: { Authorization: this.getToken } }
         )
@@ -69,7 +69,7 @@ export default {
     async checkedTodo (todoObj) {
       try {
         await this.axios.put(
-          `https://cryptic-caverns-48253.herokuapp.com/api/todos/${todoObj._id}` && `http://localhost:8080/api/todos/${todoObj._id}`,
+          `https://cryptic-caverns-48253.herokuapp.com/api/todos/${todoObj._id}`,
           { isDone: !todoObj.isDone },
           { headers: { Authorization: this.getToken } }
         )
@@ -80,7 +80,7 @@ export default {
     async updatedTodo (id, name) {
       try {
         await this.axios.put(
-          `https://cryptic-caverns-48253.herokuapp.com/api/todos/${id}` && `http://localhost:8080/api/todos/${id}`,
+          `https://cryptic-caverns-48253.herokuapp.com/api/todos/${id}`,
           { name },
           { headers: { Authorization: this.getToken } }
         )
@@ -91,7 +91,7 @@ export default {
     async deleteTodo (id) {
       try {
         await this.axios.delete(
-          `https://cryptic-caverns-48253.herokuapp.com/api/todos/${id}``http://localhost:8080/api/todos/${id}`,
+          `https://cryptic-caverns-48253.herokuapp.com/api/todos/${id}`,
           { headers: { Authorization: this.getToken } }
         )
       } catch (e) {
@@ -101,7 +101,7 @@ export default {
     async checkAllTodo (value) {
       try {
         await this.axios.put(
-          'https://cryptic-caverns-48253.herokuapp.com/api/todos' && 'http://localhost:8080/api/todos',
+          'https://cryptic-caverns-48253.herokuapp.com/api/todos',
           { isDone: value },
           { headers: { Authorization: this.getToken } }
         )
@@ -115,7 +115,7 @@ export default {
     async clearCompletedTodo () {
       try {
         await this.axios.delete(
-          'https://cryptic-caverns-48253.herokuapp.com/api/todos' && 'http://localhost:8080/api/todos',
+          'https://cryptic-caverns-48253.herokuapp.com/api/todos',
           { headers: { Authorization: this.getToken } }
         )
         setTimeout(() => {
