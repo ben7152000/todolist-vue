@@ -3,7 +3,7 @@
     <input
       type="text"
       placeholder="New Task Item"
-      v-model="task"
+      v-model="name"
       @keyup.enter="add"
     >
   </div>
@@ -16,22 +16,21 @@ export default {
   name: 'TodoHeader',
   data () {
     return {
-      task: ''
+      name: ''
     }
   },
   methods: {
     add () {
-      if (!this.task.trim()) {
+      if (!this.name.trim()) {
         return Swal.fire({
           title: 'Warning!!',
           text: 'Please do something in the input!',
           icon: 'warning'
         })
       }
-      const id = Math.random().toString(36).slice(-8)
-      const todoObj = { id, task: this.task.trim(), isDone: false }
+      const todoObj = { name: this.name.trim() }
       this.$emit('addTodo', todoObj)
-      this.task = ''
+      this.name = ''
     }
   }
 }

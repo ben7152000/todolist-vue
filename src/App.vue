@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar title="Todo List"/>
-      <router-view/>
+      <router-view v-if="isShow"/>
   </div>
 </template>
 
@@ -12,6 +12,22 @@ export default {
   name: 'App',
   components: {
     Navbar
+  },
+  data () {
+    return {
+      isShow: true
+    }
+  },
+  provide () {
+    return {
+      reload: this.reload
+    }
+  },
+  methods: {
+    reload () {
+      this.isShow = false
+      this.$nextTick(() => { this.isShow = true })
+    }
   }
 }
 </script>
@@ -29,17 +45,4 @@ export default {
 ul {
   list-style: none;
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-.fade-enter-to,
-.fade-leave {
-  opacity: 1;
-}
-
 </style>

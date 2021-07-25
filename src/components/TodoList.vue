@@ -1,17 +1,13 @@
 <template>
   <ul class="todo-main">
-    <transition-group name="fade">
       <TodoItem
         v-for="todo in todos"
-        :key="todo.id"
+        :key="todo._id"
         :todo="todo"
         :checkedTodo="checkedTodo"
         :updatedTodo="updatedTodo"
         :deleteTodo="deleteTodo"
-        class="animate__animated"
-        :class=" { 'animate__fadeInUp': isAnimate, 'animate__delay-1s': isAnimate}"
       />
-      </transition-group>
   </ul>
 </template>
 
@@ -40,16 +36,6 @@ export default {
       type: Function,
       required: true
     }
-  },
-  data () {
-    return {
-      isAnimate: true
-    }
-  },
-  mounted () {
-    setTimeout(() => {
-      this.isAnimate = false
-    }, 2000)
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-footer animate__animated animate__fadeInUp animate__delay-2s">
+  <div class="todo-footer">
     <label>
       <input type="checkbox" v-model="isAll">
     </label>

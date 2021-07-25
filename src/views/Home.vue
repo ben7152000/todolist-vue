@@ -1,14 +1,15 @@
 <template>
   <div class="home">
-    <div class="container animate__animated animate__jackInTheBox">
-      <TodoHeader @addTodo="addTodo"/>
-      <transition name="fade" mode="out-in">
+    <div class="container">
+      <TodoHeader @addTodo="addTodo" @keyup.native.enter="showRouter"/>
+
         <div v-if="todos.length">
           <TodoList
             :todos="todos"
             :checkedTodo="checkedTodo"
             :updatedTodo="updatedTodo"
             :deleteTodo="deleteTodo"
+            :showRouter="showRouter"
           />
           <TodoFooter
             :todos="todos"
@@ -19,7 +20,7 @@
         <template v-else>
           <p>Nothing Tasks</p>
         </template>
-      </transition>
+
     </div>
   </div>
 </template>
@@ -36,14 +37,37 @@ export default {
     TodoHeader,
     TodoFooter
   },
+  mounted () {
+    this.axios.get('http://localhost:8080/api/todos', {
+      headers: { Authorization: this.getToken }
+    })
+      .then(res => {
+        this.todos = res.data
+      }).catch(e => {
+        console.log(e)
+      })
+  },
   data () {
     return {
-      todos: JSON.parse(localStorage.getItem('todos')) || []
+      getToken: 'Bearer' + ' ' + JSON.parse(localStorage.getItem('token')),
+      todos: []
     }
   },
+  inject: ['reload'],
   methods: {
-    addTodo (todoObj) {
-      this.todos.unshift(todoObj)
+    showRouter () {
+      this.reload()
+    },
+    async addTodo (todoObj) {
+      try {
+        await this.axios.post(
+          'http://localhost:8080/api/todos',
+          todoObj,
+          { headers: { Authorization: this.getToken } }
+        )
+      } catch (e) {
+        console.log(e)
+      }
     },
     checkedTodo (id) {
       this.todos.forEach(todo => {
@@ -55,10 +79,15 @@ export default {
         if (todo.id === id) todo.task = task
       })
     },
-    deleteTodo (id) {
-      this.todos = this.todos.filter(todo => {
-        if (todo.id !== id) return todo
-      })
+    async deleteTodo (id) {
+      try {
+        await this.axios.delete(
+          `http://localhost:8080/api/todos/${id}`,
+          { headers: { Authorization: this.getToken } }
+        )
+      } catch (e) {
+        console.log(e)
+      }
     },
     checkAllTodo (value) {
       this.todos.forEach(todo => {
@@ -69,14 +98,6 @@ export default {
       this.todos = this.todos.filter(todo => {
         return !todo.isDone
       })
-    }
-  },
-  watch: {
-    todos: {
-      handler (value) {
-        localStorage.setItem('todos', JSON.stringify(value))
-      },
-      deep: true
     }
   }
 }

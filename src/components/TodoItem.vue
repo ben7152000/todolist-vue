@@ -10,20 +10,20 @@
         :class="{ 'checked' : todo.isDone }"
         v-show="!isEdit"
       >
-        {{ todo.task }}
+        {{ todo.name }}
       </span>
       <input
         type="text"
         class="edit-input"
         v-show="isEdit"
-        :value="todo.task"
+        :value="todo.name"
         @blur="blurHandler(todo, $event)"
         ref="inputTask"
       >
     </label>
     <div>
       <button class="edit" @click="editHandler(todo)">edit</button>
-      <button class="btn" @click="deleteHandler(todo.id)">delete</button>
+      <button class="btn" @click="deleteHandler(todo._id)">delete</button>
     </div>
   </li>
 </template>
@@ -50,6 +50,7 @@ export default {
       required: true
     }
   },
+  inject: ['reload'],
   data () {
     return {
       isEdit: false
@@ -62,7 +63,7 @@ export default {
     deleteHandler (id) {
       Swal.fire({
         title: 'Are you sure?',
-        text: 'You want to delete your task?',
+        text: 'You want to delete your todo?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -73,10 +74,11 @@ export default {
           if (result.isConfirmed) {
             Swal.fire(
               'Deleted!',
-              'Your file has been deleted.',
+              'Your todo has been deleted.',
               'success'
             )
             this.deleteTodo(id)
+            this.reload()
           }
         })
     },
