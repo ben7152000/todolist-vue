@@ -42,6 +42,21 @@ router.put('/:id', verify, async (req, res) => {
   }
 })
 
+// checked all
+router.put('/', verify, async (req, res) => {
+  const userId = req.user.id
+  try {
+    const updateTodo = await Todo.updateMany(
+      { userId },
+      { $set: req.body },
+      { new: true }
+    )
+    res.status(200).json(updateTodo)
+  } catch (e) {
+    res.status(500).json(e)
+  }
+})
+
 // delete
 router.delete('/:id', verify, async (req, res) => {
   const _id = req.params.id
@@ -49,6 +64,17 @@ router.delete('/:id', verify, async (req, res) => {
   try {
     await Todo.findOneAndDelete({ _id, userId })
     res.status(200).json('The todo has been deleted...')
+  } catch (e) {
+    res.status(500).json(e)
+  }
+})
+
+// delete all
+router.delete('/', verify, async (req, res) => {
+  const userId = req.user.id
+  try {
+    await Todo.deleteMany({ userId, isDone: true })
+    res.status(200).json('The todos has been deleted...')
   } catch (e) {
     res.status(500).json(e)
   }

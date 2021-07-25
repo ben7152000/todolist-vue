@@ -1,7 +1,6 @@
 <template>
   <nav>
     <h1>{{ title }}</h1>
-    <button @click="logout">Logout</button>
   </nav>
 </template>
 
@@ -12,11 +11,6 @@ export default {
     title: {
       type: String,
       required: true
-    }
-  },
-  methods: {
-    logout () {
-      this.$emit('userLogout')
     }
   }
 }
@@ -35,18 +29,6 @@ nav {
     color: #ffffff;
     font-size: 3rem;
     letter-spacing: 1px;
-    z-index: 999;
-  }
-  > button {
-    position: absolute;
-    right: 20px;
-    background-color: teal;
-    cursor: pointer;
-    padding: 10px;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    text-decoration: none;
     z-index: 999;
   }
 }

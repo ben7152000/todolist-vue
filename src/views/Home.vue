@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <button @click="logout" class="btn">Logout</button>
     <div class="container">
       <TodoHeader @addTodo="addTodo" />
 
@@ -36,6 +37,7 @@ export default {
     TodoHeader,
     TodoFooter
   },
+  inject: ['reload'],
   mounted () {
     this.axios.get('http://localhost:8080/api/todos', {
       headers: { Authorization: this.getToken }
@@ -96,15 +98,36 @@ export default {
         console.log(e)
       }
     },
-    checkAllTodo (value) {
-      this.todos.forEach(todo => {
-        todo.isDone = value
-      })
+    async checkAllTodo (value) {
+      try {
+        await this.axios.put(
+          'http://localhost:8080/api/todos',
+          { isDone: value },
+          { headers: { Authorization: this.getToken } }
+        )
+        setTimeout(() => {
+          this.reload()
+        }, 100)
+      } catch (e) {
+        console.log(e)
+      }
     },
-    clearCompletedTodo () {
-      this.todos = this.todos.filter(todo => {
-        return !todo.isDone
-      })
+    async clearCompletedTodo () {
+      try {
+        await this.axios.delete(
+          'http://localhost:8080/api/todos',
+          { headers: { Authorization: this.getToken } }
+        )
+        setTimeout(() => {
+          this.reload()
+        }, 100)
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    logout () {
+      localStorage.removeItem('token')
+      this.$router.push('/login')
     }
   }
 }
@@ -121,6 +144,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  position: relative;
   &:before {
     content: '';
     position: absolute;
@@ -130,6 +154,19 @@ export default {
     height: 100%;
     background: #000000;
     opacity: .3;
+  }
+  > .btn {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    background-color: teal;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    letter-spacing: .5px;
   }
   > .container {
     width: 600px;
